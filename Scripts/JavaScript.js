@@ -44,12 +44,14 @@ function genQuote(getAPI){
             title: title,
             pic: pic
         };
+        console.log(info.auth);
         // This will pass object out of getQuote function
         buildContent(info);
-        
+        buildTwitter(info);        
     });
 }
 
+// Build data from API for use
 function buildContent(info) {
     if(info.title){
         document.getElementById('front').style.backgroundImage = 'url(' + pic + ')';
@@ -62,9 +64,11 @@ function buildContent(info) {
     }
 }
 
-//function buildTwitter(info) {
-//    $("#tweet").on("click", console.log(info.title));
-//}
+function buildTwitter(info) {
+    $("#tweet").on("click", function () {
+        window.open("https://twitter.com/intent/tweet?text=" + info.quote + '%0a' + info.auth);
+    });
+}
 
 //credit to theysaidso.com
 function theysaidso(){
@@ -76,17 +80,7 @@ $(document).ready(function (){
     genQuote();
     $("#getQuote").on("click", genQuote);
     $("#theysaidso").on("click", theysaidso);
-    $("#tweet").on("click", function (info) {
-        console.log(info.title);
-    });
 });
-
-
-//var auth = '';
-//var quote = '';
-//var title = '';
-//var pic = '';
-
 
 // **** A string to view API object values -- Call it inside getJSON function ****
 //Object.getOwnPropertyNames(data.contents.quotes[0]).forEach(function (val, idx, array)
